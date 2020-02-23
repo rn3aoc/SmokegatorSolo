@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_slideshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/trueBearingTextView"
+        android:layout_width="121dp"
+        android:layout_height="20dp"
+        android:text="@string/t_bearing"
+        app:layout_constraintStart_toStartOf="@+id/editTextLat"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTBearing" />
+
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+
+        android:text="@string/send"
+        app:layout_constraintStart_toStartOf="@+id/editTextLat"
+        app:layout_constraintTop_toBottomOf="@+id/trueBearingTextView" />
+
+    <EditText
+        android:id="@+id/editTextLat"
+        android:layout_width="120dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="144dp"
+        android:ems="10"
+        android:hint="@string/lat_hint"
+        android:inputType="numberDecimal|numberSigned"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextLng"
+        android:layout_width="120dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="28dp"
+        android:ems="10"
+        android:hint="@string/lon_hint"
+        android:inputType="numberDecimal|numberSigned"
+        app:layout_constraintStart_toEndOf="@+id/editTextLat"
+        app:layout_constraintTop_toTopOf="@+id/editTextLat" />
+
+    <EditText
+        android:id="@+id/editTextMBearing"
+        android:layout_width="90dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="@string/bearing_hint"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/trueBearingTextView"
+        app:layout_constraintTop_toTopOf="@+id/editTextTBearing" />
+
+    <EditText
+        android:id="@+id/editTextTBearing"
+        android:layout_width="90dp"
+        android:layout_height="42dp"
+        android:ems="10"
+        android:hint="@string/bearing_hint"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="@+id/editTextLat"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lat"
+        app:layout_constraintStart_toStartOf="@+id/editTextLat"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLat" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lon"
+        app:layout_constraintStart_toStartOf="@+id/editTextLng"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLng" />
+
+    <TextView
+        android:id="@+id/magBearingTextView"
+        android:layout_width="90dp"
+        android:layout_height="20dp"
+        android:text="@string/m_bearing"
+        app:layout_constraintBottom_toBottomOf="@+id/trueBearingTextView"
+        app:layout_constraintStart_toEndOf="@+id/trueBearingTextView"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMBearing"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ToggleButton
+        android:id="@+id/GPStoggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:checked="false"
+        android:onClick="toggleUpdatesHandler"
+        android:text="@string/GPS_ToggleButton"
+        android:textOff="@string/GPS_Off"
+        android:textOn="@string/GPS_On"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_slideshow" />
+
+    <TextView
+        android:id="@+id/AccuracyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/accuracy"
+        app:layout_constraintStart_toStartOf="@+id/inclinationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/inclinationTextView" />
+
+    <wildfire.volunteers.smokegator.solo.ui.CompassView
+        android:id="@+id/compassView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toEndOf="@+id/editTextMBearing"
+        app:layout_constraintTop_toTopOf="@+id/editTextMBearing" />
+
+    <TextView
+        android:id="@+id/inclinationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/inclination"
+        app:layout_constraintStart_toStartOf="@+id/GPStoggleButton"
+        app:layout_constraintTop_toBottomOf="@+id/GPStoggleButton" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/bearing"
+        app:layout_constraintStart_toStartOf="@+id/editTextLat"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

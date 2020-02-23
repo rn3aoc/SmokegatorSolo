@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- Allowed GoogleMap map types  -->
+    <string-array name="map_maptype_entries">
+        <item>Стандартная</item>
+        <item>Ландшафт</item>
+        <item>Спутник</item>
+        <item>Гибридная</item>
+    </string-array>
+    <string-array name="map_maptype_values">
+        <item>1</item>
+        <item>3</item>
+        <item>2</item>
+        <item>4</item>
+    </string-array>
+
+    <!-- Active campaign names -->
+    <string-array name="campaign_entries">
+        <item>Тестирование приложения</item>
+        <item>Талдом-2000</item>
+        <item>Талдом-2000 тест</item>
+        <item>Cyprus - test</item>
+        <item>Ладога - 2000</item>
+        <item>Ладога - 2000 тест</item>
+        <item>"Москворецкая пойма"</item>
+    </string-array>
+    <string-array name="campaign_values">
+        <item>test</item>
+        <item>taldom</item>
+        <item>taldom_test</item>
+        <item>cyprus_test</item>
+        <item>ladoga</item>
+        <item>ladoga_test</item>
+        <item>moscowriver</item>
+    </string-array>
+</resources>
