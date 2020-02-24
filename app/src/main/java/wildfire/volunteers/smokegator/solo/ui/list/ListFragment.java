@@ -14,8 +14,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import wildfire.volunteers.smokegator.solo.R;
+import wildfire.volunteers.smokegator.solo.data.Peleng;
 import wildfire.volunteers.smokegator.solo.ui.PelengListAdapter;
+import wildfire.volunteers.smokegator.solo.viewmodel.PelengViewModel;
 
 public class ListFragment extends Fragment {
     /*
@@ -39,13 +43,27 @@ public class ListFragment extends Fragment {
 
      */
 
+    private PelengViewModel pelengViewModel;
+    PelengListAdapter adapter;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
-        final PelengListAdapter adapter = new PelengListAdapter(getActivity());
+
+        //PelengListAdapter adapter = new PelengListAdapter(getActivity());
+        adapter = new PelengListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        pelengViewModel = ViewModelProviders.of(getActivity()).get(PelengViewModel.class);
+        pelengViewModel.getAllPelengs().observe(getActivity(), new Observer<List<Peleng>>(){
+            @Override
+            public void onChanged(@Nullable final List<Peleng> pelengs){
+                adapter.setPelengs(pelengs);
+            }
+        } );
+
+
 
         return rootView;
     }

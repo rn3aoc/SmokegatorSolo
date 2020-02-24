@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/row"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <wildfire.volunteers.smokegator.solo.ui.CompassView
         android:id="@+id/compass_view"
@@ -19,49 +20,53 @@
         android:id="@+id/tvLat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/lat"
         app:layout_constraintStart_toEndOf="@+id/compass_view"
-        app:layout_constraintTop_toTopOf="@+id/compass_view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvLng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:text="@string/lng"
         app:layout_constraintStart_toEndOf="@+id/tvLat"
-        app:layout_constraintTop_toTopOf="@+id/compass_view" />
+        app:layout_constraintTop_toTopOf="@+id/tvLat" />
 
     <TextView
         android:id="@+id/tvCallsign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/callsign"
-        app:layout_constraintStart_toEndOf="@+id/compass_view"
-        app:layout_constraintTop_toBottomOf="@+id/tvLat" />
+        app:layout_constraintStart_toEndOf="@+id/tvTimestamp"
+        app:layout_constraintTop_toTopOf="@+id/tvTimestamp" />
 
     <TextView
         android:id="@+id/tvTimestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/timestamp"
-        app:layout_constraintStart_toEndOf="@+id/tvCallsign"
+        app:layout_constraintStart_toEndOf="@+id/compass_view"
         app:layout_constraintTop_toBottomOf="@+id/tvLat" />
 
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete_24px"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/compass_view"
-        app:srcCompat="@drawable/ic_delete_24px" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit_location_24px"
         app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-        app:layout_constraintTop_toTopOf="@+id/compass_view"
-        app:srcCompat="@drawable/ic_edit_location_24px" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

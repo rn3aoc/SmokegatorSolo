@@ -22,10 +22,12 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
     private List<Peleng> mPelengs; // Cached copy of words
 
     public PelengListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+   //public PelengListAdapter(Context context, List<Peleng> pelengList) { this.mPelengs = pelengList; }
 
     @Override
     public PelengViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_peleng, parent, false);
+        //View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_peleng, parent, false);
         return new PelengViewHolder(itemView);
     }
 
@@ -34,8 +36,8 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
         if (mPelengs != null) {
             Peleng current = mPelengs.get(position);
             holder.compassView.updateAzimuth(current.getBearing());
-            holder.tvLat.setText(String.format(Locale.US,"%d", current.getLat()));
-            holder.tvLng.setText(String.format(Locale.US,"%d", current.getLng()));
+            holder.tvLat.setText(String.format(Locale.US,"%f", current.getLat()));
+            holder.tvLng.setText(String.format(Locale.US,"%f", current.getLng()));
             holder.tvCallsign.setText(current.getCallsign());
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             holder.tvTimestamp.setText(dateFormat.format(current.getTimestamp()));
@@ -51,7 +53,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
         }
     }
 
-    void setPelengs(List<Peleng> pelengs){
+   public void setPelengs(List<Peleng> pelengs){
         mPelengs = pelengs;
         notifyDataSetChanged();
     }

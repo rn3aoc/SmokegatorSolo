@@ -39,7 +39,16 @@
         <string name="settings_header">Settings</string>
         <string name="maptype_title">Map type</string>
         <string name="peleng_length">Peleng length</string>
+        <string name="user_callsign">Choose user callsign</string>
 
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+
+    <!-- Error messages -->
+    <string name="errormsg_lat">Latitude cannot be more than 90 degrees</string>
+    <string name="errormsg_lng">Longitude cannot be more than 180 degrees</string>
+    <string name="errormsg_bearing">Peleng value cannot be more than 360 degrees</string>
+    <string name="errormsg_bearing_neg">Peleng value cannot be negative</string>
+
 </resources>
