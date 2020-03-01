@@ -40,4 +40,22 @@ public class PelengRepository {
             return null;
         }
     }
+
+    private static class deletePelengAsyncTask extends AsyncTask<Peleng, Void, Void> {
+        private PelengDao mAsyncTaskDao;
+
+        deletePelengAsyncTask(PelengDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Peleng... params) {
+            mAsyncTaskDao.deletePeleng(params[0]);
+            return null;
+        }
+    }
+
+    public void deletePeleng(Peleng peleng)  {
+        new deletePelengAsyncTask(mPelengDao).execute(peleng);
+    }
 }

@@ -1,5 +1,7 @@
 package wildfire.volunteers.smokegator.solo.ui.pelengator;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.GeomagneticField;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -35,52 +39,14 @@ import wildfire.volunteers.smokegator.solo.data.Peleng;
 import wildfire.volunteers.smokegator.solo.ui.CompassView;
 import wildfire.volunteers.smokegator.solo.viewmodel.PelengViewModel;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class PelengatorFragment extends Fragment {
 
     private static final String TAG = "PelengatorFragment";
+    private static final String MAP_PREFS_NAME = "mapCameraState";
 
-    // Code used in requesting runtime permissions.
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
-    // Constant used in the location settings dialog.
-    private static final int REQUEST_CHECK_SETTINGS = 0x1;
-
-    // The desired interval for location updates. Inexact. Updates may be more or less frequent.
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
-
-    //The fastest rate for active location updates. Exact. Updates will never be more frequent than this value.
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
-            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-
-    // Keys for storing activity state in the Bundle.
-    private final static String KEY_REQUESTING_LOCATION_UPDATES = "requesting-location-updates";
-    private final static String KEY_LOCATION = "location";
-    private final static String KEY_LAST_UPDATED_TIME_STRING = "last-updated-time-string";
-
-    //Possible Azimuth values
-    private static final float MIN_BEARING = 0f;
-    private static final float MAX_BEARING = 360f;
-
-    // Provides access to the Fused Location Provider API.
-    private FusedLocationProviderClient mFusedLocationClient;
-    // Provides access to the Location Settings API.
-    private SettingsClient mSettingsClient;
-    // Stores parameters for requests to the FusedLocationProviderApi.
-    private LocationRequest mLocationRequest;
-    // Stores the types of location services the client is interested in using. Used for checking
-    // settings to determine if the device has optimal location settings.
-    private LocationSettingsRequest mLocationSettingsRequest;
-    // Callback for Location events.
-    private LocationCallback mLocationCallback;
-    //Represents a geographical location.
-    private Location mCurrentLocation;
-    // Tracks the status of the location updates request. Value changes when the user presses the
-    // Start Updates and Stop Updates buttons.
-    private Boolean mRequestingLocationUpdates;
-    // Time when the location was updated represented as a String.
-    private String mLastUpdateTime;
-
-    private float mInclination;
 
     // Local geomagnetic inclination object.
     private GeomagneticField mGeomagneticField = new GeomagneticField(
@@ -90,44 +56,53 @@ public class PelengatorFragment extends Fragment {
             new Date().getTime());
 
     // UI Widgets.
-    private Button mStartUpdatesButton;
-    private Button mStopUpdatesButton;
-    private ToggleButton mToggleButton;
+
+    private ToggleButton GPSToggleButton;
     private EditText latitudeView;
     private EditText longitudeView;
     private EditText magBearing;
     private EditText trueBearing;
     private EditText callsignView;
-    private TextView accuracy;
     private TextView inclinationView;
     private CompassView compassView;
     private Button sendButton;
 
     private PelengViewModel mViewModel;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences mapStatePrefs;
+    private String callsign;
+    private float storedLat;
+    private float storedLng;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        mapStatePrefs = getActivity().getSharedPreferences(MAP_PREFS_NAME, Context.MODE_PRIVATE);
+        callsign = sharedPreferences.getString("callsign", "default");
+        storedLat = mapStatePrefs.getFloat("latitude", 0f);
+        storedLng = mapStatePrefs.getFloat("longitude", 0f);
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_pelengator, container, false);
 
-        mToggleButton = rootView.findViewById(R.id.GPStoggleButton);
         latitudeView = rootView.findViewById(R.id.editTextLat);
         longitudeView = rootView.findViewById(R.id.editTextLng);
         magBearing = rootView.findViewById(R.id.editTextMBearing);
         trueBearing = rootView.findViewById(R.id.editTextTBearing);
-        accuracy = rootView.findViewById(R.id.AccuracyTextView);
         inclinationView = rootView.findViewById(R.id.inclinationTextView);
         compassView = rootView.findViewById(R.id.compassView);
         callsignView = rootView.findViewById(R.id.callsignEditText);
         sendButton = (Button) rootView.findViewById(R.id.sendButton);
 
-        mViewModel = ViewModelProviders.of(this).get(PelengViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(PelengViewModel.class);
 
-        mRequestingLocationUpdates = false;
-        mLastUpdateTime = "";
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        mSettingsClient = LocationServices.getSettingsClient(getActivity());
+        // Callsign default from preferences
+        callsignView.setText(callsign);
 
         // Check latitude input
+        latitudeView.setText(String.valueOf(storedLat));
         latitudeView.addTextChangedListener(new TextWatcher() {
             double latitude;
             double longitude;
@@ -162,6 +137,7 @@ public class PelengatorFragment extends Fragment {
         });
 
         // Check longitude input
+        longitudeView.setText(String.valueOf(storedLng));
         longitudeView.addTextChangedListener(new TextWatcher() {
             double latitude;
             double longitude;
@@ -171,7 +147,8 @@ public class PelengatorFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (latitudeView.getText().toString().isEmpty()) longitude = 0;
+                if (latitudeView.getText().toString().isEmpty()) latitude = 0;
+                if (longitudeView.getText().toString().isEmpty()) longitude = 0;
                 else longitude = Float.parseFloat(longitudeView.getText().toString());  //ToDo crash on "empty String"
 
                 if (Math.abs(longitude) > 180d)
@@ -261,12 +238,6 @@ public class PelengatorFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /*PelengEntity nEntity = mViewModel.NewPelengEntity(
-                        Double.parseDouble(latitudeView.getText().toString()),
-                        Double.parseDouble(longitudeView.getText().toString()),
-                        Float.parseFloat(trueBearing.getText().toString()));
-                 */
-
                 mViewModel.insert(new Peleng(
                         0,
                         Double.parseDouble(latitudeView.getText().toString()),
@@ -286,16 +257,6 @@ public class PelengatorFragment extends Fragment {
 
 
 
-        // Kick off the process of building the LocationCallback, LocationRequest, and
-        // LocationSettingsRequest objects.
-        //createLocationCallback();
-        //createLocationRequest();
-        //buildLocationSettingsRequest();
-
-
         return rootView;
     }
-
-
-
 }

@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Date;
 
 @Entity(tableName = "peleng_table")
@@ -50,4 +52,6 @@ public class Peleng {
     public float getBearing(){return this.mBearing;}
     public String getCallsign(){return this.mCallsign;}
     public Date getTimestamp(){return this.mTimestamp;}
+
+    public LatLng getLatLng(){return new LatLng(this.mLat, this.mLng);}
 }

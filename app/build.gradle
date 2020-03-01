@@ -34,6 +34,10 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.0'
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+    //implementation 'com.yayandroid:LocationManager:2.2.0'
+    implementation 'com.github.pengrad:mapscaleview:1.5.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

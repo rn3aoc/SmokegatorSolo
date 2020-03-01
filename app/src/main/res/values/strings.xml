@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Smokegator Solo</string>
+    <string name="google_maps_key">AIzaSyDFhWSLNrtFdYiOOL65SWy31ILfjSKRKQA</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Smokegator Solo</string>
@@ -11,6 +12,12 @@
     <string name="menu_list">List of pelengs</string>
 
     <string name="menu_pelengator">Pelengator</string>
+
+
+    <string name="error_permission_map">Permissions not found</string>
+    <string name="title_location_permission">Permission</string>
+    <string name="text_location_permission">Permit access to location</string>
+    <string name="ok">ОК</string>
 
     <!--<string name="az">Азимут</string> -->
     <string name="lat">Latitude</string>
@@ -36,10 +43,10 @@
 
     <string name="menu_settings">Settings</string>
 
-        <string name="settings_header">Settings</string>
-        <string name="maptype_title">Map type</string>
-        <string name="peleng_length">Peleng length</string>
-        <string name="user_callsign">Choose user callsign</string>
+    <string name="settings_header">Settings</string>
+    <string name="maptype_title">Map type</string>
+    <string name="peleng_length">Peleng length</string>
+    <string name="user_callsign">Choose user callsign</string>
 
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
@@ -50,5 +57,8 @@
     <string name="errormsg_lng">Longitude cannot be more than 180 degrees</string>
     <string name="errormsg_bearing">Peleng value cannot be more than 360 degrees</string>
     <string name="errormsg_bearing_neg">Peleng value cannot be negative</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="location_rational_message">Location permission is necessary for positioning.</string>
 
 </resources>

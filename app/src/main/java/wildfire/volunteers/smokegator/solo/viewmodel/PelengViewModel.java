@@ -25,4 +25,6 @@ public class PelengViewModel extends AndroidViewModel {
 
     public void insert(Peleng peleng) { mRepository.insert(peleng); }
 
+    public void deletePeleng(Peleng peleng) {mRepository.deletePeleng(peleng);}
+
 }
