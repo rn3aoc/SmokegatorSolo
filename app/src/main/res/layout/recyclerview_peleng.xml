@@ -38,6 +38,7 @@
         android:id="@+id/tvCallsign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:text="@string/callsign"
         app:layout_constraintStart_toEndOf="@+id/tvTimestamp"
         app:layout_constraintTop_toTopOf="@+id/tvTimestamp" />
@@ -50,22 +51,6 @@
         android:text="@string/timestamp"
         app:layout_constraintStart_toEndOf="@+id/compass_view"
         app:layout_constraintTop_toBottomOf="@+id/tvLat" />
-
-    <ImageButton
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete_24px"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit_location_24px"
-        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
