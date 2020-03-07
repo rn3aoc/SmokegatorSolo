@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.hardware.GeomagneticField;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -38,7 +40,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import wildfire.volunteers.smokegator.solo.R;
 import wildfire.volunteers.smokegator.solo.data.Peleng;
@@ -59,6 +63,12 @@ public class MapFragment extends Fragment {
     private GoogleMap googleMap;
     private MapScaleView mapScaleView;
     private CameraPosition cameraPosition;
+    private TextView cameraLatView;
+    private TextView cameraLngView;
+    private TextView inclinationView;
+    private GeomagneticField mGeomagneticField;
+    private float mInclination;
+
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getContext(),
@@ -110,6 +120,12 @@ public class MapFragment extends Fragment {
         super.onCreate(savedInstanceState);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        mGeomagneticField = new GeomagneticField(
+                0f,
+                0f,
+                0,
+                new Date().getTime());
+
 
     }
 
@@ -123,6 +139,10 @@ public class MapFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         mapScaleView = rootView.findViewById(R.id.scaleView);
+
+        cameraLatView = rootView.findViewById(R.id.cameraLatTextView);
+        cameraLngView = rootView.findViewById(R.id.cameraLngTextView);
+        inclinationView = rootView.findViewById(R.id.inclinationTextView);
 
         SupportMapFragment googleMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         googleMapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -172,6 +192,8 @@ public class MapFragment extends Fragment {
                         mapStateManager.saveMapState(googleMap);
                         cameraPosition = googleMap.getCameraPosition();
                         mapScaleView.update(cameraPosition.zoom, cameraPosition.target.latitude);
+                        cameraLatView.setText(String.format(Locale.US,"%f", cameraPosition.target.latitude));
+                        cameraLngView.setText(String.format(Locale.US,"%f", cameraPosition.target.longitude));
                     }
                 });
                 googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
@@ -184,6 +206,20 @@ public class MapFragment extends Fragment {
                     }
                 });
 
+                googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                    @Override
+                    public boolean onMyLocationButtonClick() {
+                        mGeomagneticField = new GeomagneticField(
+                                (float) cameraPosition.target.latitude,
+                                (float) cameraPosition.target.longitude,
+                                0,
+                                new Date().getTime());
+                        mInclination = mGeomagneticField.getDeclination();
+                        //inclinationView.setText(String.format(Locale.US,"Incl. %.2f°", mInclination));
+                        return false;
+                    }
+                });
+
 
                 mViewModel.getAllPelengs().observe(getActivity(), new Observer<List<Peleng>>() {
                     @Override
@@ -192,7 +228,6 @@ public class MapFragment extends Fragment {
                     }
                 });
             }
-
 
             public void drawMarkers(GoogleMap googleMap, List<Peleng> mPelengs){
 
@@ -223,7 +258,6 @@ public class MapFragment extends Fragment {
                 return computeOffset(mLatLng, distance, mBearing);
             }
         });
-
 
         return rootView;
     }

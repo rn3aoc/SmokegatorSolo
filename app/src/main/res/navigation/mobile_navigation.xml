@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
+        android:id="@+id/nav_arpelengator"
+        android:name="wildfire.volunteers.smokegator.solo.ui.arpelengator.ARpelengatorFragment"
+        android:label="@string/menu_arpelengator"
+        tools:layout="@layout/fragment_arpelengator" />
+
+    <fragment
         android:id="@+id/nav_share"
         android:name="wildfire.volunteers.smokegator.solo.ui.share.ShareFragment"
         android:label="@string/menu_share"

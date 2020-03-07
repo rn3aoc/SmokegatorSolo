@@ -10,8 +10,8 @@
 
     <string name="menu_map">Map</string>
     <string name="menu_list">List of pelengs</string>
-
     <string name="menu_pelengator">Pelengator</string>
+    <string name="menu_arpelengator">AR Pelengator</string>
 
 
     <string name="error_permission_map">Permissions not found</string>
@@ -60,5 +60,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="location_rational_message">Location permission is necessary for positioning.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

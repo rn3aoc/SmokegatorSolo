@@ -22,9 +22,12 @@
             android:title="@string/menu_settings" />
     </group>
 
-    <!--
-    <item android:title="Communicate">
+    <item android:title="Experimental">
         <menu>
+            <item
+                android:id="@+id/nav_arpelengator"
+                android:icon="@drawable/ic_arpelengator_24px"
+                android:title="AR pelengator" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
@@ -34,6 +37,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/menu_send" />
         </menu>
-    </item> -->
+    </item>
 
 </menu>
