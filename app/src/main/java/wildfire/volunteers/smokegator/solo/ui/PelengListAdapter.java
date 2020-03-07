@@ -1,10 +1,12 @@
 package wildfire.volunteers.smokegator.solo.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +27,13 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
 
     private final LayoutInflater mInflater;
     private List<Peleng> mPelengs; // Cached copy of words
+    private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
+    private Context mContext;
 
-    public PelengListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public PelengListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     public Peleng getPelengAtPosition(int position) {
         return mPelengs.get(position);
@@ -40,15 +46,40 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
     }
 
     @Override
-    public void onBindViewHolder(PelengViewHolder holder, int position) {
+    public void onBindViewHolder(final PelengViewHolder holder, int position) {
         if (mPelengs != null) {
             final Peleng current = mPelengs.get(position);
             holder.compassView.updateAzimuth(current.getBearing());
             holder.tvLat.setText(String.format(Locale.US,"%f", current.getLat()));
             holder.tvLng.setText(String.format(Locale.US,"%f", current.getLng()));
             holder.tvCallsign.setText(current.getCallsign());
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            //DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             holder.tvTimestamp.setText(dateFormat.format(current.getTimestamp()));
+
+            holder.sendButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String envelope = new String(" Lat: " +
+                            (String.format(Locale.US,"%f", current.getLat())) +
+                            ",\n Lng: " +
+                            (String.format(Locale.US,"%f", current.getLng())) +
+                            ",\n Az: " +
+                            (String.format(Locale.US,"%.1f", current.getBearing())) +
+                            ",\n By: " +
+                            current.getCallsign() +
+                            ",\n Time: "+
+                            (dateFormat.format(current.getTimestamp())));
+
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, envelope);
+                    sendIntent.setType("text/plain");
+
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    holder.sendButton.getContext().startActivity(shareIntent);
+
+                }
+            });
 
         } else {
             // Covers the case of data not being ready yet.
@@ -58,6 +89,8 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             holder.tvCallsign.setText("");
             holder.tvTimestamp.setText("");
         }
+
+
     }
 
    public void setPelengs(List<Peleng> pelengs){
@@ -81,6 +114,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
         private final TextView tvLng;
         private final TextView tvCallsign;
         private final TextView tvTimestamp;
+        private final ImageButton sendButton;
         //private final Button deleteButton;
         //private final Button editButton;
 
@@ -91,9 +125,16 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             this.tvLng = itemView.findViewById(R.id.tvLng);
             this.tvCallsign = itemView.findViewById(R.id.tvCallsign);
             this.tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+            this.sendButton = itemView.findViewById(R.id.sendButton);
             //this.deleteButton = itemView.findViewById(R.id.deleteButton);
             //this.editButton = itemView.findViewById(R.id.editButton);
+
         }
+
+
+
     }
+
+
 
 }
