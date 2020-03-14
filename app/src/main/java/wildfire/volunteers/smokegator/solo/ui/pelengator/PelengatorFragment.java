@@ -237,12 +237,15 @@ public class PelengatorFragment extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float bearing;
+                if (trueBearing.getText().toString().isEmpty()) bearing = 0;
+                else bearing = Float.parseFloat(trueBearing.getText().toString());
 
                 mViewModel.insert(new Peleng(
                         0,
                         Double.parseDouble(latitudeView.getText().toString()),
                         Double.parseDouble(longitudeView.getText().toString()),
-                        Float.parseFloat(trueBearing.getText().toString()),
+                        bearing,
                         callsignView.getText().toString(),
                         new Date()
                 ));

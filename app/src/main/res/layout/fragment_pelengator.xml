@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
 
-        android:text="@string/send"
+        android:text="@string/save_button"
         app:layout_constraintStart_toStartOf="@+id/editTextLat"
         app:layout_constraintTop_toBottomOf="@+id/trueBearingTextView" />
 

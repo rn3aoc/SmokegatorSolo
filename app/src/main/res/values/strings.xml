@@ -38,6 +38,7 @@
     <string name="inclination">inclination</string>
     <string name="callsign">Callsign</string>
     <string name="timestamp">Timestamp</string>
+    <string name="save_button">Save</string>
 
     <string name="no_pelengs">No Pelengs</string>
 

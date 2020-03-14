@@ -59,6 +59,15 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             holder.sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    String clippedCallsign; // check whether the callsign is too long
+                    if (current.getCallsign().length() > 10) {
+                        clippedCallsign = current.getCallsign().substring(0, 9) + "...";
+                    }
+                    else {
+                        clippedCallsign = current.getCallsign();
+                    }
+
                     String envelope = new String(" Lat: " +
                             (String.format(Locale.US,"%f", current.getLat())) +
                             ",\n Lng: " +
@@ -66,7 +75,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
                             ",\n Az: " +
                             (String.format(Locale.US,"%.1f", current.getBearing())) +
                             ",\n By: " +
-                            current.getCallsign() +
+                            clippedCallsign +
                             ",\n Time: "+
                             (dateFormat.format(current.getTimestamp())));
 
