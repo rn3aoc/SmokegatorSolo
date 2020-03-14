@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
+import java.util.Locale;
 
 import wildfire.volunteers.smokegator.solo.R;
 import wildfire.volunteers.smokegator.solo.data.Peleng;
@@ -59,6 +61,8 @@ public class MapFragment extends Fragment {
     private GoogleMap googleMap;
     private MapScaleView mapScaleView;
     private CameraPosition cameraPosition;
+    private TextView cameraLatView;
+    private TextView cameraLngView;
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getContext(),
@@ -124,6 +128,9 @@ public class MapFragment extends Fragment {
 
         mapScaleView = rootView.findViewById(R.id.scaleView);
 
+        cameraLatView = rootView.findViewById(R.id.cameraLatTextView);
+        cameraLngView = rootView.findViewById(R.id.cameraLngTextView);
+
         SupportMapFragment googleMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         googleMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -172,6 +179,8 @@ public class MapFragment extends Fragment {
                         mapStateManager.saveMapState(googleMap);
                         cameraPosition = googleMap.getCameraPosition();
                         mapScaleView.update(cameraPosition.zoom, cameraPosition.target.latitude);
+                        cameraLatView.setText(String.format(Locale.US,"%f", cameraPosition.target.latitude));
+                        cameraLngView.setText(String.format(Locale.US,"%f", cameraPosition.target.longitude));
                     }
                 });
                 googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
