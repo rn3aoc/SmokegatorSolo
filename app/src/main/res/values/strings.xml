@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">Smokegator Solo</string>
-    <string name="google_maps_key">AIzaSyDFhWSLNrtFdYiOOL65SWy31ILfjSKRKQA</string>
+
+    <string name="app_name" translatable="false">Smokegator Solo</string>
+    <string name="google_maps_key" translatable="false">AIzaSyDFhWSLNrtFdYiOOL65SWy31ILfjSKRKQA</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Smokegator Solo</string>
+    <string name="nav_header_title" translatable="false">Smokegator Solo</string>
     <string name="nav_header_subtitle">Offline wildfire smoke pelengator</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -13,24 +15,23 @@
 
     <string name="menu_pelengator">Pelengator</string>
 
-
     <string name="error_permission_map">Permissions not found</string>
     <string name="title_location_permission">Permission</string>
     <string name="text_location_permission">Permit access to location</string>
-    <string name="ok">ОК</string>
+    <string name="ok" translatable="false">ОК</string>
 
     <!--<string name="az">Азимут</string> -->
     <string name="lat">Latitude</string>
-    <string name="lon">Longitude</string>
+    <string name="lon">Longitude</string> <!-- Depricated, saved just in case -->
     <string name="lng">Longitude</string>
-    <string name="lat_hint">00.000</string>
-    <string name="lon_hint">00.000</string>
+    <string name="lat_hint" translatable="false">00.000</string>
+    <string name="lon_hint" translatable="false">00.000</string>
     <string name="input_peleng">Peleng input</string>
     <string name="send">Send</string>
     <string name="bearing">Bearing</string>
     <string name="m_bearing">magnetic</string>
     <string name="t_bearing">true</string>
-    <string name="bearing_hint">000.0</string>
+    <string name="bearing_hint" translatable="false">000.0</string>
     <string name="GPS_On">GPS on</string>
     <string name="GPS_Off">GPS off</string>
     <string name="GPS_ToggleButton">GPS ToggleButton</string>
@@ -59,7 +60,6 @@
     <string name="errormsg_bearing">Peleng value cannot be more than 360 degrees</string>
     <string name="errormsg_bearing_neg">Peleng value cannot be negative</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="location_rational_message">Location permission is necessary for positioning.</string>
 
 </resources>

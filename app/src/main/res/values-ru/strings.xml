@@ -1,0 +1,65 @@
+<resources>
+
+    <string name="app_name" translatable="false">Smokegator Solo</string>
+    <string name="google_maps_key" translatable="false">AIzaSyDFhWSLNrtFdYiOOL65SWy31ILfjSKRKQA</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Smokegator Solo</string>
+    <string name="nav_header_subtitle">Пеленгатор дымов - однопользовательская версия</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_map">Карта</string>
+    <string name="menu_list">Список пеленгов</string>
+
+    <string name="menu_pelengator">Пеленгатор</string>
+
+    <string name="error_permission_map">Нет необходимых разрешений</string>
+    <string name="title_location_permission">Разрешения</string>
+    <string name="text_location_permission">Разрешить доступ к геолокации</string>
+    <string name="ok" translatable="false">ОК</string>
+
+    <!--<string name="az">Азимут</string> -->
+    <string name="lat">Широта</string>
+    <string name="lon">Долгота</string> <!-- Depricated, saved just in case -->
+    <string name="lng">Долгота</string>
+    <string name="lat_hint" translatable="false">00.000</string>
+    <string name="lon_hint" translatable="false">00.000</string>
+    <string name="input_peleng">Ввод пеленга</string>
+    <string name="send">Отправить</string>
+    <string name="bearing">Азимут</string>
+    <string name="m_bearing">магнитный</string>
+    <string name="t_bearing">истинный</string>
+    <string name="bearing_hint" translatable="false">000.0</string>
+    <string name="GPS_On">GPS включен</string>
+    <string name="GPS_Off">GPS отключен</string>
+    <string name="GPS_ToggleButton">GPS ToggleButton</string>
+    <string name="accuracy">точность</string>
+    <string name="inclination">склонение</string>
+    <string name="callsign">Позывной</string>
+    <string name="timestamp">Время</string>
+    <string name="save_button">Сохранить</string>
+
+    <string name="no_pelengs">Нет пеленгов</string>
+
+    <string name="menu_settings">Настройки</string>
+
+    <string name="settings_header">Настройки</string>
+    <string name="maptype_title">Тип карты</string>
+    <string name="peleng_length">Длина пеленга</string>
+    <string name="user_callsign">Ваш позывной</string>
+
+    <string name="menu_share">Поделиться</string>
+    <string name="menu_send">Отправить</string>
+
+
+    <!-- Error messages -->
+    <string name="errormsg_lat">Широта не может быть больше 90 градусов</string>
+    <string name="errormsg_lng">Долгота не может быть больше 180 градусов</string>
+    <string name="errormsg_bearing">Значение пеленга не может быть больше 360 градусов</string>
+    <string name="errormsg_bearing_neg">Пеленг не может быть отрицательным</string>
+
+    <string name="location_rational_message">Доступ к геолокации необходим для позиционирования.</string>
+
+</resources>
