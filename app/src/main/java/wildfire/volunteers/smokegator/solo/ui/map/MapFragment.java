@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +34,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Dash;
+import com.google.android.gms.maps.model.Dot;
+import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -205,6 +211,12 @@ public class MapFragment extends Fragment {
 
             public void drawMarkers(GoogleMap googleMap, List<Peleng> mPelengs){
 
+                List<PatternItem> bgPattern = Arrays.<PatternItem>asList(
+                        new Gap(10), new Dash(30));
+                List<PatternItem> dotPattern = Arrays.<PatternItem>asList(
+                        new Gap(30), new Dash(10));
+
+
                 for (int i = 0; i < mPelengs.size(); i++) {
                     Marker mMarker = googleMap.addMarker(new MarkerOptions()
                             .position(mPelengs.get(i).getLatLng())
@@ -219,11 +231,22 @@ public class MapFragment extends Fragment {
                             .alpha(0.8f));
                     Polyline mPolyline = googleMap.addPolyline(new PolylineOptions()
                             .clickable(true)
-                            .width(2)
+                            .width(3)
+                            .color(sharedPreferences.getInt("normal_line_color", Context.MODE_PRIVATE))
                             .add(
                                     mPelengs.get(i).getLatLng(),
                                     pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing())
                             ));
+                    Polyline mPolylineDots = googleMap.addPolyline(new PolylineOptions()
+                            .clickable(true)
+                            .width(3)
+                            .color(Color.WHITE)
+                            .add(
+                                    mPelengs.get(i).getLatLng(),
+                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing())
+                            ));
+                    mPolyline.setPattern(bgPattern);
+                    mPolylineDots.setPattern(dotPattern);
                 }
             }
 

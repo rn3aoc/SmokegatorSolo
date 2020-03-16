@@ -48,7 +48,14 @@
     <string name="settings_header">Settings</string>
     <string name="maptype_title">Map type</string>
     <string name="peleng_length">Peleng length</string>
+    <string name="peleng_length_summary">Length of the peleng, 0 to 50 km</string>
     <string name="user_callsign">Choose user callsign</string>
+    <string name="color_dialog_title">Select a color</string>
+    <string name="color_marker_default_title">Peleng marker color</string>
+    <string name="color_marker_default_summary">Choose peleng marker color</string>
+    <string name="color_line_default_title">Peleng line color</string>
+    <string name="color_line_default_summary">Choose peleng line color</string>
+
 
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
