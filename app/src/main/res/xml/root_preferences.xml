@@ -54,11 +54,20 @@
             app:cpv_showAlphaSlider="true"
             app:cpv_dialogTitle="@string/color_dialog_title"/>
 
+        <!--
+        <SwitchPreferenceCompat
+            app:key="show_peleng_sector"
+            app:summaryOff="@string/show_peleng_sector_off"
+            app:summaryOn="@string/show_peleng_sector_on"
+            app:title="@string/show_peleng_sector_title" />
+            -->
+
         <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
             android:defaultValue="@color/color_sector_default"
             android:key="normal_sector_color"
             android:summary="@string/color_sector_default_summary"
             android:title="@string/color_sector_default_title"
+
             app:cpv_showAlphaSlider="true"
             app:cpv_dialogTitle="@string/color_dialog_title"/>
 

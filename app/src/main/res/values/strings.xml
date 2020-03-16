@@ -55,6 +55,9 @@
     <string name="color_marker_default_summary">Choose peleng marker color</string>
     <string name="color_line_default_title">Peleng line color</string>
     <string name="color_line_default_summary">Choose peleng line color</string>
+    <string name="show_peleng_sector_off">Hide peleng accurecy sector</string>
+    <string name="show_peleng_sector_on">Show peleng accurecy sector</string>
+    <string name="show_peleng_sector_title">Peleng accuracy sector</string>
     <string name="color_sector_default_title">Peleng sector color</string>
     <string name="color_sector_default_summary">Choose peleng sector color</string>
 

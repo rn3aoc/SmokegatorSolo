@@ -214,9 +214,9 @@ public class MapFragment extends Fragment {
             public void drawMarkers(GoogleMap googleMap, List<Peleng> mPelengs){
 
                 List<PatternItem> bgPattern = Arrays.<PatternItem>asList(
-                        new Gap(5), new Dash(15));
+                        new Gap(3), new Dash(17));
                 List<PatternItem> dotPattern = Arrays.<PatternItem>asList(
-                        new Dash(5), new Gap(15));
+                        new Dash(3), new Gap(17));
 
 
                 for (int i = 0; i < mPelengs.size(); i++) {
@@ -263,7 +263,7 @@ public class MapFragment extends Fragment {
             }
 
             private LatLng pelengToLatLng(LatLng mLatLng, float mBearing){
-                double distance = sharedPreferences.getInt("pelenglength", 15)*300; // 0-30 km
+                double distance = sharedPreferences.getInt("pelenglength", 15)*500; // 0-50 km
                 return computeOffset(mLatLng, distance, mBearing);
             }
         });
