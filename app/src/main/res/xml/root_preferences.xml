@@ -54,6 +54,14 @@
             app:cpv_showAlphaSlider="true"
             app:cpv_dialogTitle="@string/color_dialog_title"/>
 
+        <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+            android:defaultValue="@color/color_sector_default"
+            android:key="normal_sector_color"
+            android:summary="@string/color_sector_default_summary"
+            android:title="@string/color_sector_default_title"
+            app:cpv_showAlphaSlider="true"
+            app:cpv_dialogTitle="@string/color_dialog_title"/>
+
 
     </PreferenceCategory>
 

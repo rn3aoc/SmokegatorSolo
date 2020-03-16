@@ -6,4 +6,6 @@
 
     <color name="color_marker_default">#f44336</color> // Red
     <color name="color_line_default">#000000</color> // Black
+    <color name="color_sector_default">#05505050</color> // Black
+    <color name="color_peleng_sector">#05505050</color> // Transparent grey
 </resources>

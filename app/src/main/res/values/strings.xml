@@ -55,6 +55,8 @@
     <string name="color_marker_default_summary">Choose peleng marker color</string>
     <string name="color_line_default_title">Peleng line color</string>
     <string name="color_line_default_summary">Choose peleng line color</string>
+    <string name="color_sector_default_title">Peleng sector color</string>
+    <string name="color_sector_default_summary">Choose peleng sector color</string>
 
 
     <string name="menu_share">Share</string>

@@ -41,6 +41,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -212,9 +214,9 @@ public class MapFragment extends Fragment {
             public void drawMarkers(GoogleMap googleMap, List<Peleng> mPelengs){
 
                 List<PatternItem> bgPattern = Arrays.<PatternItem>asList(
-                        new Gap(10), new Dash(30));
+                        new Gap(5), new Dash(15));
                 List<PatternItem> dotPattern = Arrays.<PatternItem>asList(
-                        new Gap(30), new Dash(10));
+                        new Dash(5), new Gap(15));
 
 
                 for (int i = 0; i < mPelengs.size(); i++) {
@@ -247,6 +249,16 @@ public class MapFragment extends Fragment {
                             ));
                     mPolyline.setPattern(bgPattern);
                     mPolylineDots.setPattern(dotPattern);
+
+                    Polygon mPolygon = googleMap.addPolygon(new PolygonOptions()
+                            .add(
+                                    mPelengs.get(i).getLatLng(),
+                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing()+2.5f),
+                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing()-2.5f)
+                            )
+                            .fillColor(sharedPreferences.getInt("normal_sector_color", Context.MODE_PRIVATE))
+                            .strokeWidth(0f)
+                    );
                 }
             }
 
