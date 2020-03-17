@@ -20,7 +20,7 @@ public class MarkerIcon {
 
     private float mBearing = 0;
     private String mCallsign;
-    private Color mColor;
+    private int mColor;
     private String mTimestamp;
 
     private Bitmap.Config conf = Bitmap.Config.ARGB_8888;
@@ -28,13 +28,14 @@ public class MarkerIcon {
     private Paint mPaint;
     Matrix matrix = new Matrix();
 
-    public MarkerIcon(float bearing, Date timestamp, String callsign){
+    public MarkerIcon(float bearing, Date timestamp, String callsign, int color){
 
         mBearing = bearing;
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US); //ToDo date
         mTimestamp = dateFormat.format(timestamp);
         //mCallsign = sharedPreferences.getString("callsign", "default_callsign");
         mCallsign = callsign;
+        mColor = color;
 
         Canvas mCanvas = new Canvas(mBitmap);
         Paint mPaint = new Paint();
@@ -45,7 +46,7 @@ public class MarkerIcon {
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(6);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.RED); //ToDo set color from call
+        mPaint.setColor(mColor); //ToDo set color from call
         mPaint.setTextSize(26);
 
         mCanvas.drawCircle(13,40,10, mPaint);

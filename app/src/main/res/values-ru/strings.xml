@@ -48,7 +48,18 @@
     <string name="settings_header">Настройки</string>
     <string name="maptype_title">Тип карты</string>
     <string name="peleng_length">Длина пеленга</string>
+    <string name="peleng_length_summary">Длина пеленга, от 0 до 50 км</string>
     <string name="user_callsign">Ваш позывной</string>
+    <string name="color_dialog_title">Выбор цвета</string>
+    <string name="color_marker_default_title">Цвет маркера пеленга</string>
+    <string name="color_marker_default_summary">Выберите цвет маркера пеленга</string>
+    <string name="color_line_default_title">Цвет линии пеленга</string>
+    <string name="color_line_default_summary">Выберите цвет линии пеленга</string>
+    <string name="show_peleng_sector_off">Скрыть сектор точности пеленга</string>
+    <string name="show_peleng_sector_on">Показать сектор точности пеленга</string>
+    <string name="show_peleng_sector_title">Сектор точности пеленга</string>
+    <string name="color_sector_default_title">Цвет сектора пеленга</string>
+    <string name="color_sector_default_summary">Выбприте цвет сектора пеленга</string>
 
     <string name="menu_share">Поделиться</string>
     <string name="menu_send">Отправить</string>

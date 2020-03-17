@@ -229,7 +229,9 @@ public class MapFragment extends Fragment {
                             .icon(BitmapDescriptorFactory.fromBitmap(new MarkerIcon(
                                     mPelengs.get(i).getBearing(),
                                     mPelengs.get(i).getTimestamp(),
-                                    mPelengs.get(i).getCallsign()).getBitmap()))
+                                    mPelengs.get(i).getCallsign(),
+                                    sharedPreferences.getInt("normal_marker_color", Context.MODE_PRIVATE)
+                                    ).getBitmap()))
                             .alpha(0.8f));
                     Polyline mPolyline = googleMap.addPolyline(new PolylineOptions()
                             .clickable(true)
