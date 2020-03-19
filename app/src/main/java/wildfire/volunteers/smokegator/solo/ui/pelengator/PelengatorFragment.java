@@ -1,5 +1,6 @@
 package wildfire.volunteers.smokegator.solo.ui.pelengator;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.GeomagneticField;
@@ -36,6 +37,7 @@ import java.util.Locale;
 
 import wildfire.volunteers.smokegator.solo.R;
 import wildfire.volunteers.smokegator.solo.data.Peleng;
+import wildfire.volunteers.smokegator.solo.data.PelengClipboard;
 import wildfire.volunteers.smokegator.solo.ui.CompassView;
 import wildfire.volunteers.smokegator.solo.viewmodel.PelengViewModel;
 
@@ -66,6 +68,8 @@ public class PelengatorFragment extends Fragment {
     private TextView inclinationView;
     private CompassView compassView;
     private Button sendButton;
+    private Button clipboardButton;
+    private TextView testTextView;
 
     private PelengViewModel mViewModel;
     private SharedPreferences sharedPreferences;
@@ -73,6 +77,7 @@ public class PelengatorFragment extends Fragment {
     private String callsign;
     private float storedLat;
     private float storedLng;
+    private Peleng clipboardPeleng;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -95,6 +100,8 @@ public class PelengatorFragment extends Fragment {
         compassView = rootView.findViewById(R.id.compassView);
         callsignView = rootView.findViewById(R.id.callsignEditText);
         sendButton = (Button) rootView.findViewById(R.id.sendButton);
+        clipboardButton = rootView.findViewById(R.id.clipboardButton);
+        testTextView = rootView.findViewById(R.id.testTextView);
 
         mViewModel = new ViewModelProvider(this).get(PelengViewModel.class);
 
@@ -183,6 +190,7 @@ public class PelengatorFragment extends Fragment {
                 float magbearing;
                 float truebearing;
                 float inclination;
+
                 // in case of editText field is cleaned
                 if (magBearing.getText().toString().isEmpty()) magbearing = 0;
                 else magbearing = Float.parseFloat(magBearing.getText().toString());
@@ -233,7 +241,6 @@ public class PelengatorFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
-
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,14 +257,41 @@ public class PelengatorFragment extends Fragment {
                         new Date()
                 ));
 
-
-                    Toast.makeText(getActivity(), "Pressed", Toast.LENGTH_SHORT).show();
-
-
+                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
             }
-
         });
 
+        clipboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try { clipboardPeleng = new PelengClipboard(getContext()).getPeleng(); }
+                catch (Exception e){ Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+
+                try { latitudeView.setText(String.valueOf(clipboardPeleng.getLat()));}
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+
+                try { longitudeView.setText(String.valueOf(clipboardPeleng.getLng()));}
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+
+                try { trueBearing.setText(String.valueOf(clipboardPeleng.getBearing()));}
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+
+                try { callsignView.setText(clipboardPeleng.getCallsign());}
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+
+            }
+        });
+
+        if (new PelengClipboard(getContext()).isReady()){
+            clipboardButton.setClickable(true);
+            clipboardButton.setEnabled(true);
+        } else {
+            clipboardButton.setClickable(false);
+            clipboardButton.setEnabled(false);
+        }
+
+        //testTextView.setText(new PelengClipboard(getContext()).getString());
 
 
         return rootView;

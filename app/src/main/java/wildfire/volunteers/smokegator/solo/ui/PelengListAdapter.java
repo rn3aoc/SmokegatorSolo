@@ -68,16 +68,11 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
                         clippedCallsign = current.getCallsign();
                     }
 
-                    String envelope = new String(" Lat: " +
-                            (String.format(Locale.US,"%f", current.getLat())) +
-                            ",\n Lng: " +
-                            (String.format(Locale.US,"%f", current.getLng())) +
-                            ",\n Az: " +
-                            (String.format(Locale.US,"%.1f", current.getBearing())) +
-                            ",\n By: " +
-                            clippedCallsign +
-                            ",\n Time: "+
-                            (dateFormat.format(current.getTimestamp())));
+                    String envelope = new String(
+                            (String.format(Locale.US,"%f, ", current.getLat())) +
+                            (String.format(Locale.US,"%f, ", current.getLng())) +
+                            (String.format(Locale.US,"%.1f, ", current.getBearing())) +
+                            clippedCallsign);
 
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);

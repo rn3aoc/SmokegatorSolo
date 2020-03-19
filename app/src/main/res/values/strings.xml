@@ -28,6 +28,7 @@
     <string name="lon_hint" translatable="false">00.000</string>
     <string name="input_peleng">Peleng input</string>
     <string name="send">Send</string>
+    <string name="clipboard_button">Get from clipboard</string>
     <string name="bearing">Bearing</string>
     <string name="m_bearing">magnetic</string>
     <string name="t_bearing">true</string>
