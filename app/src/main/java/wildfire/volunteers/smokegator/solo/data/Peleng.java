@@ -30,19 +30,28 @@ public class Peleng {
     @NonNull
     @ColumnInfo(name = "timestamp")
     private Date mTimestamp;
+    @ColumnInfo(name = "comment")
+    private String mComment;
+    @NonNull
+    @ColumnInfo(name = "visibility")
+    private boolean mVisibility;
 
     public Peleng(int localid,
                   @NonNull double lat,
                   @NonNull double lng,
                   @NonNull float bearing,
                   @NonNull String callsign,
-                  @NonNull Date timestamp) {
+                  @NonNull Date timestamp,
+                  String comment,
+                  boolean visibility) {
         this.localid = localid;
         this.mLat = lat;
         this.mLng = lng;
         this.mBearing = bearing;
         this.mCallsign = callsign;
         this.mTimestamp = timestamp;
+        this.mComment = comment;
+        this.mVisibility = visibility;
     }
 
     // Getters for Room database
@@ -52,6 +61,8 @@ public class Peleng {
     public float getBearing(){return this.mBearing;}
     public String getCallsign(){return this.mCallsign;}
     public Date getTimestamp(){return this.mTimestamp;}
+    public String getComment(){return this.mComment;}
+    public boolean getVisibility(){return this.mVisibility;}
 
     public LatLng getLatLng(){return new LatLng(this.mLat, this.mLng);}
 }

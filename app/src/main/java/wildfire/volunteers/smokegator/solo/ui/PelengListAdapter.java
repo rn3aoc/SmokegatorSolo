@@ -55,12 +55,17 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             holder.tvCallsign.setText(current.getCallsign());
             //DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             holder.tvTimestamp.setText(dateFormat.format(current.getTimestamp()));
+            if (holder.tvComment != null) {holder.tvComment.setText(current.getComment());}
+            else {holder.tvComment.setText("empty");}
+
 
             holder.sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     String clippedCallsign; // check whether the callsign is too long
+                    String mComment;
+
                     if (current.getCallsign().length() > 10) {
                         clippedCallsign = current.getCallsign().substring(0, 9) + "...";
                     }
@@ -68,11 +73,15 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
                         clippedCallsign = current.getCallsign();
                     }
 
+                    if (current.getComment().isEmpty()) {mComment = "no comment";}
+                    else mComment = current.getComment();
+
                     String envelope = new String(
                             (String.format(Locale.US,"%f, ", current.getLat())) +
                             (String.format(Locale.US,"%f, ", current.getLng())) +
                             (String.format(Locale.US,"%.1f, ", current.getBearing())) +
-                            clippedCallsign);
+                            clippedCallsign + ", " +
+                            mComment);
 
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
@@ -91,6 +100,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             holder.tvLat.setText("");
             holder.tvLng.setText("");
             holder.tvCallsign.setText("");
+            holder.tvComment.setText("");
             holder.tvTimestamp.setText("");
         }
 
@@ -118,6 +128,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
         private final TextView tvLng;
         private final TextView tvCallsign;
         private final TextView tvTimestamp;
+        private final TextView tvComment;
         private final ImageButton sendButton;
         //private final Button deleteButton;
         //private final Button editButton;
@@ -129,6 +140,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             this.tvLng = itemView.findViewById(R.id.tvLng);
             this.tvCallsign = itemView.findViewById(R.id.tvCallsign);
             this.tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+            this.tvComment = itemView.findViewById(R.id.tvComment);
             this.sendButton = itemView.findViewById(R.id.sendButton);
             //this.deleteButton = itemView.findViewById(R.id.deleteButton);
             //this.editButton = itemView.findViewById(R.id.editButton);

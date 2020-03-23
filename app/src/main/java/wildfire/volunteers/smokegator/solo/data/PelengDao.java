@@ -20,6 +20,9 @@ public interface PelengDao {
     @Query("SELECT * from peleng_table ORDER BY timestamp DESC") // the newest pelengs first
     LiveData<List<Peleng>> getAllPelengs();
 
+    @Query("SELECT * from peleng_table WHERE visibility IS 'true' ORDER BY timestamp DESC")
+    LiveData<List<Peleng>> getAllVisiblePelengs();
+
     @Delete
     void deletePeleng(Peleng peleng);
 }

@@ -11,16 +11,21 @@ public class PelengRepository {
 
     private PelengDao mPelengDao;
     private LiveData<List<Peleng>> mAllPelengs;
+    private LiveData<List<Peleng>> mAllVisiblePelengs;
 
     public PelengRepository(Application application) {
         PelengRoomDatabase db = PelengRoomDatabase.getDatabase(application);
         mPelengDao = db.pelengDao();
         mAllPelengs = mPelengDao.getAllPelengs();
+        mAllVisiblePelengs = mPelengDao.getAllVisiblePelengs();
+
     }
 
     public LiveData<List<Peleng>> getAllPelengs() {
         return mAllPelengs;
     }
+
+    public LiveData<List<Peleng>> getAllVisiblePelengs() { return mAllVisiblePelengs; }
 
     public void insert (Peleng peleng) {
         new insertAsyncTask(mPelengDao).execute(peleng);

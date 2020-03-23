@@ -67,6 +67,7 @@ public class PelengatorFragment extends Fragment {
     private EditText callsignView;
     private TextView inclinationView;
     private CompassView compassView;
+    private EditText commentView;
     private Button sendButton;
     private Button clipboardButton;
     private TextView testTextView;
@@ -99,6 +100,7 @@ public class PelengatorFragment extends Fragment {
         inclinationView = rootView.findViewById(R.id.inclinationTextView);
         compassView = rootView.findViewById(R.id.compassView);
         callsignView = rootView.findViewById(R.id.callsignEditText);
+        commentView = rootView.findViewById(R.id.commentEditText);
         sendButton = (Button) rootView.findViewById(R.id.sendButton);
         clipboardButton = rootView.findViewById(R.id.clipboardButton);
         testTextView = rootView.findViewById(R.id.testTextView);
@@ -254,7 +256,9 @@ public class PelengatorFragment extends Fragment {
                         Double.parseDouble(longitudeView.getText().toString()),
                         bearing,
                         callsignView.getText().toString(),
-                        new Date()
+                        new Date(),
+                        commentView.getText().toString(),
+                        true
                 ));
 
                 Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
@@ -269,16 +273,20 @@ public class PelengatorFragment extends Fragment {
                 catch (Exception e){ Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
 
                 try { latitudeView.setText(String.valueOf(clipboardPeleng.getLat()));}
-                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard! \n Lat not found.", Toast.LENGTH_SHORT).show(); }
 
                 try { longitudeView.setText(String.valueOf(clipboardPeleng.getLng()));}
-                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard! \n Lng not found.", Toast.LENGTH_SHORT).show(); }
 
                 try { trueBearing.setText(String.valueOf(clipboardPeleng.getBearing()));}
-                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard! \n Bearing not found.", Toast.LENGTH_SHORT).show(); }
 
                 try { callsignView.setText(clipboardPeleng.getCallsign());}
-                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard!", Toast.LENGTH_SHORT).show(); }
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard! \n Callsign not found.", Toast.LENGTH_SHORT).show(); }
+
+                try { if (clipboardPeleng.getComment().equals("no comment")) {commentView.setText("");}
+                    else {commentView.setText(clipboardPeleng.getComment());}}
+                catch (Exception e) { Toast.makeText(getActivity(), "Wrong data in clipboard! \n Comment parsing error. ", Toast.LENGTH_SHORT).show(); }
 
             }
         });

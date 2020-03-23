@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Database(entities = {Peleng.class}, version = 1, exportSchema = false)
+@Database(entities = {Peleng.class}, version = 2, exportSchema = false)
 @TypeConverters({DateTypeConverter.class})
 public abstract class PelengRoomDatabase extends RoomDatabase {
 

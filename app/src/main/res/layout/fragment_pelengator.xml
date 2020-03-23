@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/text_slideshow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="393dp"
+        android:layout_height="11dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -31,18 +31,18 @@
         android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
 
+        android:layout_marginTop="24dp"
         android:text="@string/save_button"
         app:layout_constraintStart_toStartOf="@+id/editTextLat"
-        app:layout_constraintTop_toBottomOf="@+id/trueBearingTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/commentTextView" />
 
     <EditText
         android:id="@+id/editTextLat"
         android:layout_width="120dp"
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="@string/lat_hint"
         android:inputType="numberDecimal|numberSigned"
@@ -142,7 +142,15 @@
         app:layout_constraintTop_toBottomOf="@+id/trueBearingTextView" />
 
     <TextView
-        android:id="@+id/callsignTextView"
+        android:id="@+id/commentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comment"
+        app:layout_constraintStart_toStartOf="@+id/commentEditText"
+        app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
+
+    <TextView
+        android:id="@+id/callsignTextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/callsign"
@@ -167,6 +175,18 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/sendButton"
         app:layout_constraintTop_toBottomOf="@+id/sendButton" />
+
+    <EditText
+        android:id="@+id/commentEditText"
+        android:layout_width="335dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/compassView"
+        app:layout_constraintStart_toStartOf="@+id/callsignEditText"
+        app:layout_constraintTop_toBottomOf="@+id/callsignTextView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

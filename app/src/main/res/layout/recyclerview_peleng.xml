@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/row"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="4pt">
 
     <wildfire.volunteers.smokegator.solo.ui.CompassView
         android:id="@+id/compass_view"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,16 +20,16 @@
         android:id="@+id/tvLat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/lat"
-        app:layout_constraintStart_toEndOf="@+id/compass_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/tvTimestamp"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimestamp" />
 
     <TextView
         android:id="@+id/tvLng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="@string/lng"
         app:layout_constraintStart_toEndOf="@+id/tvLat"
         app:layout_constraintTop_toTopOf="@+id/tvLat" />
@@ -38,8 +38,9 @@
         android:id="@+id/tvCallsign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:text="@string/callsign"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tvTimestamp"
         app:layout_constraintTop_toTopOf="@+id/tvTimestamp" />
 
@@ -47,20 +48,42 @@
         android:id="@+id/tvTimestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/timestamp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/compass_view"
-        app:layout_constraintTop_toBottomOf="@+id/tvLat" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_send_24px" />
+
+    <ImageButton
+        android:id="@+id/visibilityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/sendButton"
+        app:layout_constraintTop_toTopOf="@+id/sendButton"
+        app:srcCompat="@drawable/ic_visibility_24px" />
+
+    <TextView
+        android:id="@+id/tvComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/compass_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

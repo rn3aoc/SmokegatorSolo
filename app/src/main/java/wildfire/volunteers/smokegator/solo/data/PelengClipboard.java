@@ -43,7 +43,9 @@ public class PelengClipboard {
                 Double.parseDouble(parseResult.get(1)), //longitude
                 Float.parseFloat(parseResult.get(2)), //bearing
                 parseResult.get(3), // Collsign
-                new Date()
+                new Date(),
+                parseResult.get(4), // Comment
+                true
                 );
 
         return mPeleng;
