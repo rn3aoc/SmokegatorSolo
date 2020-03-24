@@ -31,7 +31,7 @@ public class MarkerIcon {
     public MarkerIcon(float bearing, Date timestamp, String callsign, int color){
 
         mBearing = bearing;
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US); //ToDo date
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm", Locale.US); //ToDo date
         mTimestamp = dateFormat.format(timestamp);
         //mCallsign = sharedPreferences.getString("callsign", "default_callsign");
         mCallsign = callsign;
@@ -53,9 +53,9 @@ public class MarkerIcon {
         mCanvas.drawLine(25,40,280,40, mPaint);
 
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(Color.BLACK);
-        mCanvas.drawText(mCallsign, 80, 30, mPaint);
-        mCanvas.drawText(mTimestamp + ", (" + (int)mBearing + "°)", 80, 65, mPaint);
+        mPaint.setColor(Color.RED);
+        mCanvas.drawText("(" + (int)mBearing + "°) " + mCallsign, 80, 30, mPaint);
+        mCanvas.drawText(mTimestamp, 80, 65, mPaint);
 
         // mCanvas.drawARGB(20,255,0,0); // test filling
 

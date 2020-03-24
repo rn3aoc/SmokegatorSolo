@@ -88,6 +88,12 @@ public class PelengatorFragment extends Fragment {
         callsign = sharedPreferences.getString("callsign", "default");
         storedLat = mapStatePrefs.getFloat("latitude", 0f);
         storedLng = mapStatePrefs.getFloat("longitude", 0f);
+
+        mGeomagneticField = new GeomagneticField(
+                storedLat,
+                storedLng,
+                0,
+                new Date().getTime());
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -109,6 +115,9 @@ public class PelengatorFragment extends Fragment {
 
         // Callsign default from preferences
         callsignView.setText(callsign);
+
+        // Initial inclination from stored position
+        inclinationView.setText(String.valueOf(mGeomagneticField.getDeclination()));
 
         // Check latitude input
         latitudeView.setText(String.valueOf(storedLat));

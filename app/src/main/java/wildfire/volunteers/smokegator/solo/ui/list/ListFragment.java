@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,26 +25,6 @@ import wildfire.volunteers.smokegator.solo.ui.PelengListAdapter;
 import wildfire.volunteers.smokegator.solo.viewmodel.PelengViewModel;
 
 public class ListFragment extends Fragment {
-    /*
-    private ListViewModel listViewModel;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        listViewModel =
-                ViewModelProviders.of(this).get(ListViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_list, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        listViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
-
-    }
-
-     */
 
     private PelengViewModel pelengViewModel;
     PelengListAdapter adapter;
@@ -56,7 +37,7 @@ public class ListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        pelengViewModel = ViewModelProviders.of(getActivity()).get(PelengViewModel.class);
+        pelengViewModel = new ViewModelProvider(getActivity()).get(PelengViewModel.class);
         pelengViewModel.getAllPelengs().observe(getActivity(), new Observer<List<Peleng>>(){
             @Override
             public void onChanged(@Nullable final List<Peleng> pelengs){
@@ -65,9 +46,10 @@ public class ListFragment extends Fragment {
         } );
 
 
-        ItemTouchHelper helper = new ItemTouchHelper(
+        // User gestures recognition
+        ItemTouchHelper helperDelete = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(0,
-                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                        ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView,
                                           @NonNull RecyclerView.ViewHolder viewHolder,
@@ -86,9 +68,30 @@ public class ListFragment extends Fragment {
                     }
                 }
         );
-        helper.attachToRecyclerView(recyclerView);
+        ItemTouchHelper helperVisibility = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView,
+                                          @NonNull RecyclerView.ViewHolder viewHolder,
+                                          @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Peleng mPeleng = adapter.getPelengAtPosition(position);
+                        pelengViewModel.togglePelengVisibility(mPeleng);
 
 
+                        Toast.makeText(getActivity(), "Visibility changed ", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+        helperDelete.attachToRecyclerView(recyclerView);
+        helperVisibility.attachToRecyclerView(recyclerView);
 
         return rootView;
     }

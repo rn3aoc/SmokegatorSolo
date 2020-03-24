@@ -27,18 +27,15 @@ public class PelengRepository {
 
     public LiveData<List<Peleng>> getAllVisiblePelengs() { return mAllVisiblePelengs; }
 
+
     public void insert (Peleng peleng) {
         new insertAsyncTask(mPelengDao).execute(peleng);
     }
-
     private static class insertAsyncTask extends AsyncTask<Peleng, Void, Void> {
-
         private PelengDao mAsyncTaskDao;
-
         insertAsyncTask(PelengDao dao) {
             mAsyncTaskDao = dao;
         }
-
         @Override
         protected Void doInBackground(final Peleng... params) {
             mAsyncTaskDao.insert(params[0]);
@@ -46,6 +43,18 @@ public class PelengRepository {
         }
     }
 
+    public void update(Peleng peleng) {new updatePelengAsyncTask(mPelengDao).execute(peleng);}
+    private static class updatePelengAsyncTask extends AsyncTask<Peleng, Void, Void> {
+        private PelengDao mAsyncTaskDao;
+        updatePelengAsyncTask(PelengDao dao) {mAsyncTaskDao = dao;}
+        @Override
+        protected Void doInBackground(final Peleng... params) {
+            mAsyncTaskDao.update(params[0]);
+            return null;
+        }
+    }
+
+    public void deletePeleng(Peleng peleng) { new deletePelengAsyncTask(mPelengDao).execute(peleng); }
     private static class deletePelengAsyncTask extends AsyncTask<Peleng, Void, Void> {
         private PelengDao mAsyncTaskDao;
 
@@ -60,7 +69,31 @@ public class PelengRepository {
         }
     }
 
-    public void deletePeleng(Peleng peleng)  {
-        new deletePelengAsyncTask(mPelengDao).execute(peleng);
+    public void setVisible(Peleng peleng){ new setVisibleAsyncTask(mPelengDao).execute(peleng); }
+    private static class setVisibleAsyncTask extends AsyncTask<Peleng, Void, Void> {
+        private PelengDao mAsyncTaskDao;
+        setVisibleAsyncTask(PelengDao dao) {
+            mAsyncTaskDao = dao;
+        }
+        @Override
+        protected Void doInBackground(final Peleng... params) {
+            int localid = params[0].getLocalid();
+            mAsyncTaskDao.setVisible(localid);
+            return null;
+        }
+    }
+
+    public void setInvisible(Peleng peleng) { new setInvisibleAsyncTask(mPelengDao).execute(peleng); }
+    private static class setInvisibleAsyncTask extends AsyncTask<Peleng, Void, Void> {
+        private PelengDao mAsyncTaskDao;
+        setInvisibleAsyncTask(PelengDao dao) {
+            mAsyncTaskDao = dao;
+        }
+        @Override
+        protected Void doInBackground(final Peleng... params) {
+            int localid = params[0].getLocalid();
+            mAsyncTaskDao.setInvisible(localid);
+            return null;
+        }
     }
 }

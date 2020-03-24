@@ -220,47 +220,51 @@ public class MapFragment extends Fragment {
 
 
                 for (int i = 0; i < mPelengs.size(); i++) {
-                    Marker mMarker = googleMap.addMarker(new MarkerOptions()
-                            .position(mPelengs.get(i).getLatLng())
-                            .anchor(0.5f, 287f/300f) // hardcoded icon size
-                            .flat(true)
-                            .rotation(mPelengs.get(i).getBearing())
-                            //.icon(BitmapDescriptorFactory.fromResource(R.drawable.peleng_darkred_30px))
-                            .icon(BitmapDescriptorFactory.fromBitmap(new MarkerIcon(
-                                    mPelengs.get(i).getBearing(),
-                                    mPelengs.get(i).getTimestamp(),
-                                    mPelengs.get(i).getCallsign(),
-                                    sharedPreferences.getInt("normal_marker_color", Context.MODE_PRIVATE)
-                                    ).getBitmap()))
-                            .alpha(0.8f));
-                    Polyline mPolyline = googleMap.addPolyline(new PolylineOptions()
-                            .clickable(true)
-                            .width(3)
-                            .color(sharedPreferences.getInt("normal_line_color", Context.MODE_PRIVATE))
-                            .add(
-                                    mPelengs.get(i).getLatLng(),
-                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing())
-                            ));
-                    Polyline mPolylineDots = googleMap.addPolyline(new PolylineOptions()
-                            .clickable(true)
-                            .width(3)
-                            .color(Color.WHITE)
-                            .add(
-                                    mPelengs.get(i).getLatLng(),
-                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing())
-                            ));
-                    mPolyline.setPattern(bgPattern);
-                    mPolylineDots.setPattern(dotPattern);
 
-                    Polygon mPolygon = googleMap.addPolygon(new PolygonOptions()
-                            .add(
-                                    mPelengs.get(i).getLatLng(),
-                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing()+2.5f),
-                                    pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing()-2.5f)
-                            )
-                            .fillColor(sharedPreferences.getInt("normal_sector_color", Context.MODE_PRIVATE))
-                            .strokeWidth(0f)
-                    );
+                    if (mPelengs.get(i).getVisibility()) {
+
+                        Marker mMarker = googleMap.addMarker(new MarkerOptions()
+                                .position(mPelengs.get(i).getLatLng())
+                                .anchor(0.5f, 287f / 300f) // hardcoded icon size
+                                .flat(true)
+                                .rotation(mPelengs.get(i).getBearing())
+                                .title(mPelengs.get(i).getComment())
+                                .icon(BitmapDescriptorFactory.fromBitmap(new MarkerIcon(
+                                        mPelengs.get(i).getBearing(),
+                                        mPelengs.get(i).getTimestamp(),
+                                        mPelengs.get(i).getCallsign(),
+                                        sharedPreferences.getInt("normal_marker_color", Context.MODE_PRIVATE)
+                                ).getBitmap()))
+                                .alpha(0.8f));
+                        Polyline mPolyline = googleMap.addPolyline(new PolylineOptions()
+                                .clickable(true)
+                                .width(3)
+                                .color(sharedPreferences.getInt("normal_line_color", Context.MODE_PRIVATE))
+                                .add(
+                                        mPelengs.get(i).getLatLng(),
+                                        pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing())
+                                ));
+                        Polyline mPolylineDots = googleMap.addPolyline(new PolylineOptions()
+                                .clickable(true)
+                                .width(3)
+                                .color(Color.WHITE)
+                                .add(
+                                        mPelengs.get(i).getLatLng(),
+                                        pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing())
+                                ));
+                        mPolyline.setPattern(bgPattern);
+                        mPolylineDots.setPattern(dotPattern);
+
+                        Polygon mPolygon = googleMap.addPolygon(new PolygonOptions()
+                                .add(
+                                        mPelengs.get(i).getLatLng(),
+                                        pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing() + 2.5f),
+                                        pelengToLatLng(mPelengs.get(i).getLatLng(), mPelengs.get(i).getBearing() - 2.5f)
+                                )
+                                .fillColor(sharedPreferences.getInt("normal_sector_color", Context.MODE_PRIVATE))
+                                .strokeWidth(0f)
+                        );
+                    }
                 }
             }
 

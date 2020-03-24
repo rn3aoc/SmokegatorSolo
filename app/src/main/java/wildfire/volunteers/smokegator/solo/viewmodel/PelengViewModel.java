@@ -25,6 +25,14 @@ public class PelengViewModel extends AndroidViewModel {
 
     public void insert(Peleng peleng) { mRepository.insert(peleng); }
 
+    public void update(Peleng peleng) {mRepository.update(peleng);}
+
     public void deletePeleng(Peleng peleng) {mRepository.deletePeleng(peleng);}
+
+    public void togglePelengVisibility(Peleng peleng){
+        if (peleng.getVisibility()) {mRepository.setInvisible(peleng);}
+        else {mRepository.setVisible(peleng);}
+    }
+
 
 }

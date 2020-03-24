@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,11 +28,12 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
 
     private final LayoutInflater mInflater;
     private List<Peleng> mPelengs; // Cached copy of words
+    //private PelengViewModel mViewModel;
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
-    private Context mContext;
+    //private Context mContext;
 
     public PelengListAdapter(Context context) {
+        //mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -47,6 +49,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
 
     @Override
     public void onBindViewHolder(final PelengViewHolder holder, int position) {
+
         if (mPelengs != null) {
             final Peleng current = mPelengs.get(position);
             holder.compassView.updateAzimuth(current.getBearing());
@@ -55,8 +58,14 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             holder.tvCallsign.setText(current.getCallsign());
             //DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             holder.tvTimestamp.setText(dateFormat.format(current.getTimestamp()));
-            if (holder.tvComment != null) {holder.tvComment.setText(current.getComment());}
-            else {holder.tvComment.setText("empty");}
+            holder.tvComment.setText(current.getComment());
+
+            // Update visibility icon
+            if(current.getVisibility()){
+                holder.visibilityButton.setImageResource(R.drawable.ic_visibility_24px);
+            }
+            else
+                holder.visibilityButton.setImageResource(R.drawable.ic_visibility_off_24px);
 
 
             holder.sendButton.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +112,6 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             holder.tvComment.setText("");
             holder.tvTimestamp.setText("");
         }
-
-
     }
 
    public void setPelengs(List<Peleng> pelengs){
@@ -129,6 +136,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
         private final TextView tvCallsign;
         private final TextView tvTimestamp;
         private final TextView tvComment;
+        private final ImageButton visibilityButton;
         private final ImageButton sendButton;
         //private final Button deleteButton;
         //private final Button editButton;
@@ -141,6 +149,7 @@ public class PelengListAdapter extends RecyclerView.Adapter<PelengListAdapter.Pe
             this.tvCallsign = itemView.findViewById(R.id.tvCallsign);
             this.tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
             this.tvComment = itemView.findViewById(R.id.tvComment);
+            this.visibilityButton = itemView.findViewById(R.id.visibilityButton);
             this.sendButton = itemView.findViewById(R.id.sendButton);
             //this.deleteButton = itemView.findViewById(R.id.deleteButton);
             //this.editButton = itemView.findViewById(R.id.editButton);
