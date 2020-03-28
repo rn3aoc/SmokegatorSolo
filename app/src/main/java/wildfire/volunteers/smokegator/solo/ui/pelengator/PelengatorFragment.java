@@ -70,7 +70,6 @@ public class PelengatorFragment extends Fragment {
     private EditText commentView;
     private Button sendButton;
     private Button clipboardButton;
-    private TextView testTextView;
 
     private PelengViewModel mViewModel;
     private SharedPreferences sharedPreferences;
@@ -109,7 +108,6 @@ public class PelengatorFragment extends Fragment {
         commentView = rootView.findViewById(R.id.commentEditText);
         sendButton = (Button) rootView.findViewById(R.id.sendButton);
         clipboardButton = rootView.findViewById(R.id.clipboardButton);
-        testTextView = rootView.findViewById(R.id.testTextView);
 
         mViewModel = new ViewModelProvider(this).get(PelengViewModel.class);
 
@@ -213,12 +211,12 @@ public class PelengatorFragment extends Fragment {
 
                 // recalculate truebearing
                 inclination = mGeomagneticField.getDeclination();
-                if (magbearing - inclination < 0)
-                    truebearing = magbearing - inclination + 360f;
+                if (magbearing + inclination < 0)
+                    truebearing = magbearing + inclination + 360f;
                 else {
-                    if (magbearing - inclination > 360)
-                        truebearing = magbearing - inclination - 360f;
-                    else truebearing = magbearing - inclination;
+                    if (magbearing + inclination > 360)
+                        truebearing = magbearing + inclination - 360f;
+                    else truebearing = magbearing + inclination;
                 }
 
                 trueBearing.setText(String.valueOf(truebearing));

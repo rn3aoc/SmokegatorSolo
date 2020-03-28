@@ -28,6 +28,7 @@
     <string name="lon_hint" translatable="false">00.000</string>
     <string name="input_peleng">Ввод пеленга</string>
     <string name="send">Отправить</string>
+    <string name="clipboard_button">Из буфера обмена</string>
     <string name="bearing">Азимут</string>
     <string name="m_bearing">магнитный</string>
     <string name="t_bearing">истинный</string>
@@ -39,6 +40,7 @@
     <string name="inclination">склонение</string>
     <string name="callsign">Позывной</string>
     <string name="timestamp">Время</string>
+    <string name="comment">комментарий</string>
     <string name="save_button">Сохранить</string>
 
     <string name="no_pelengs">Нет пеленгов</string>
