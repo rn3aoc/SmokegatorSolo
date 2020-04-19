@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
 
 import com.github.pengrad.mapscaleview.MapScaleView;
@@ -45,6 +46,7 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Arrays;
 import java.util.List;
@@ -71,6 +73,7 @@ public class MapFragment extends Fragment {
     private CameraPosition cameraPosition;
     private TextView cameraLatView;
     private TextView cameraLngView;
+    private FloatingActionButton pelengatorFloatActionButton;
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getContext(),
@@ -138,6 +141,14 @@ public class MapFragment extends Fragment {
 
         cameraLatView = rootView.findViewById(R.id.cameraLatTextView);
         cameraLngView = rootView.findViewById(R.id.cameraLngTextView);
+        pelengatorFloatActionButton = rootView.findViewById(R.id.pelengatorFloatingActionButton);
+
+        pelengatorFloatActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(rootView).navigate(R.id.action_global_nav_pelengator);
+            }
+        });
 
         SupportMapFragment googleMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         googleMapFragment.getMapAsync(new OnMapReadyCallback() {

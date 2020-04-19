@@ -40,4 +40,7 @@
         android:name="wildfire.volunteers.smokegator.solo.ui.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
+
+    <action android:id="@+id/action_global_nav_map" app:destination="@id/nav_map"/>
+    <action android:id="@+id/action_global_nav_pelengator" app:destination="@id/nav_pelengator"/>
 </navigation>
