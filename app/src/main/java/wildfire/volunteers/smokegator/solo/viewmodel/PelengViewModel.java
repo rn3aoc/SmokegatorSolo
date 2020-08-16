@@ -21,7 +21,9 @@ public class PelengViewModel extends AndroidViewModel {
         mAllPelengs = mRepository.getAllPelengs();
     }
 
-    public LiveData<List<Peleng>> getAllPelengs() { return mAllPelengs; }
+    public LiveData<List<Peleng>> getAllPelengs() {
+        return mAllPelengs;
+    }
 
     public void insert(Peleng peleng) { mRepository.insert(peleng); }
 
